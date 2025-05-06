@@ -278,6 +278,7 @@ html, body {
     top: 16vh;
     left: 0;
     text-align: center;
+    color: #E1B878;
     transition: opacity 0.5s ease, transform 0.5s ease;
     opacity: 0;
 }
