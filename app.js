@@ -85,7 +85,6 @@ window.onload = function () {
         document.querySelector(".game-ready").style.display = "flex"; // mostrar botón Start
     }
 };
-
 function guardarRegistro() {
     const nombre = document.getElementById("nombre").value;
     const apellido = document.getElementById("apellido").value;
@@ -98,7 +97,7 @@ function guardarRegistro() {
         return;
     }
 
-    const datosUsuario = {
+    const nuevoRegistro = {
         nombre,
         apellido,
         mail,
@@ -106,10 +105,29 @@ function guardarRegistro() {
         profesion
     };
 
-    localStorage.setItem("registroUsuario", JSON.stringify(datosUsuario));
+    // Leer registros anteriores desde localStorage
+    let registros = JSON.parse(localStorage.getItem("registrosUsuarios")) || [];
 
+    // Agregar nuevo registro
+    registros.push(nuevoRegistro);
+
+    // Guardar registros actualizados en localStorage
+    localStorage.setItem("registrosUsuarios", JSON.stringify(registros));
+
+    // Descargar todos los registros acumulados como JSON
+    const datosStr = JSON.stringify(registros, null, 2);
+    const blob = new Blob([datosStr], { type: "application/json" });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = "registros_usuarios.json";
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+
+    // Ocultar popup y mostrar pantalla ready
     document.getElementById("registroPopup").style.display = "none";
-    document.querySelector(".game-ready").style.display = "flex"; // Mostrar botón Start
+    document.querySelector(".game-ready").style.display = "flex";
 }
 
 document.getElementById("start-button").addEventListener("click", function () {
