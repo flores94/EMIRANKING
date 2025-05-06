@@ -140,27 +140,27 @@ var Block = /** @class */ (function () {
         this.position.y = this.dimension.height * this.index;
         this.position.z = this.targetBlock ? this.targetBlock.position.z : 0;
         this.colorOffset = this.targetBlock ? this.targetBlock.colorOffset : Math.round(Math.random() * 100);
-// set color 
+// set color  
 if (!this.targetBlock) {
-    this.color = new THREE.Color(0x263B58); // Color principal
+    this.color = new THREE.Color('#D3D3D3'); // Color principal del bloque base
 } else {
     var offset = this.index + this.colorOffset;
     var t = Math.abs(Math.sin(0.3 * offset)); // Valor entre 0 y 1 para interpolación
 
     let r, g, b;
 
-    // Interpolar entre #95D9F8 y #4EC9F4
     if (t < 0.5) {
-        r = (1 - t * 2) * 149 + (t * 2) * 78;
-        g = (1 - t * 2) * 217 + (t * 2) * 201;
-        b = (1 - t * 2) * 248 + (t * 2) * 244;
-    } 
-    // Interpolar entre #4EC9F4 y #263B58
-    else {
-        t = (t - 0.5) * 2; // Ajustar el rango para la segunda parte
-        r = (1 - t) * 78 + t * 38;
-        g = (1 - t) * 201 + t * 59;
-        b = (1 - t) * 244 + t * 88;
+        // Interpolar de #E1B878 a #FFF7EB
+        const t2 = t * 2;
+        r = (1 - t2) * 225 + t2 * 255;
+        g = (1 - t2) * 184 + t2 * 247;
+        b = (1 - t2) * 120 + t2 * 235;
+    } else {
+        // Interpolar de #FFF7EB a #CCBB9D
+        const t2 = (t - 0.5) * 2;
+        r = (1 - t2) * 255 + t2 * 204;
+        g = (1 - t2) * 247 + t2 * 187;
+        b = (1 - t2) * 235 + t2 * 157;
     }
 
     this.color = new THREE.Color(r / 255, g / 255, b / 255);
